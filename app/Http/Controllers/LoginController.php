@@ -30,6 +30,22 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
+    // login process handler
+    public function process(Request $request)
+    {
+        $request->validate([
+            'username' => 'required',
+            'password' => 'required',
+        ],
+        [
+            'username.required' => 'Username tidak boleh kosong',
+        ]);
+
+        return back()->withErrors([
+            'username' => 'Maaf username atau password tidak sesuai',
+        ])->onlyInput('username');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
