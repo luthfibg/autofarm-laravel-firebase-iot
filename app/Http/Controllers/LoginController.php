@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -14,7 +15,7 @@ class LoginController extends Controller
      */
     public function index()
     {
-        if ($user == Auth::user()) {
+        if ($user = Auth::user()) {
             if ($user->level == '1') {
                 return redirect()->intended('index');
             } elseif ($user->level == '2') {
