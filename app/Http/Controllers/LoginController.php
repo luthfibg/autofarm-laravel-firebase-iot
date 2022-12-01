@@ -17,13 +17,13 @@ class LoginController extends Controller
     {
         if ($user = Auth::user()) {
             if ($user->level == '1') {
-                return redirect()->intended('index');
+                return redirect()->intended('en-page');
             } elseif ($user->level == '2') {
-                return redirect()->intended('main');
+                return redirect()->intended('admin-page');
             } elseif ($user->level == '3') {
-                return redirect()->intended('main');
+                return redirect()->intended('support-page');
             } elseif ($user->level == '4') {
-                return redirect()->intended('dashboard');
+                return redirect()->intended('user-page');
             }
         }
 
@@ -40,6 +40,23 @@ class LoginController extends Controller
         [
             'username.required' => 'Username tidak boleh kosong',
         ]);
+
+        $credentials = $request->only('username', 'password');
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            $user = Auth::user();
+            if ($user->level == '1') {
+                return redirect()->intended('en-page');
+            } elseif ($user->level == '2') {
+                return redirect()->intended('admin-page');
+            } elseif ($user->level == '3') {
+                return redirect()->intended('support-page');
+            } elseif ($user->level == '4') {
+                return redirect()->intended('user-page');
+            }
+            return redirect()->intended('/');
+        }
 
         return back()->withErrors([
             'username' => 'Maaf username atau password tidak sesuai',
@@ -102,13 +119,18 @@ class LoginController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Logging out user from session.
      *
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function logout(Request $request)
     {
-        //
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('login');
     }
 }
