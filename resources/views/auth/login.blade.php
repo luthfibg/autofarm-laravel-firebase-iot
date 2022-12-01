@@ -25,14 +25,14 @@
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in to start your session</p>
 
-      <form action="{{ url('login/url') }}" method="post">
+      <form action="{{ url('login/process') }}" method="post">
         @csrf
         <div class="input-group mb-3">
-          <input type="text" class="form-control
+          <input type="text" name="username" class="form-control
             @error('username')
               is-invalid
             @enderror
-          " placeholder="Username" autofocus>
+          " placeholder="Username" autofocus value="{{ old('username') }}">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
