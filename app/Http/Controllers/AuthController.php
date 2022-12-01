@@ -6,10 +6,21 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class LoginController extends Controller
+class AuthController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display registration page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function new()
+    {
+
+        return view('auth.register');
+    }
+
+    /**
+     * Display main route or redirect to login page.
      *
      * @return \Illuminate\Http\Response
      */
@@ -30,7 +41,11 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
-    // login process handler
+    /**
+     * Process the form to authenticate membership.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function process(Request $request)
     {
         $request->validate([
@@ -64,13 +79,13 @@ class LoginController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Process the form for creating a new membership.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        // registration rules
     }
 
     /**
