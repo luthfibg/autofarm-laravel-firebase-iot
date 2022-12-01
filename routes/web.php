@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PanelController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
@@ -21,8 +21,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('login', [LoginController::class, 'index'])->name('login');
-Route::controller(LoginController::class)->group(function () {
+Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+Route::get('login', [AuthController::class, 'index'])->name('login');
+Route::controller(AuthController::class)->group(function () {
+    Route::get('register', 'new')->name('register');
+    Route::post('register', 'create');
     Route::get('login', 'index')->name('login');
     Route::post('login/process', 'process');
     Route::get('logout', 'logout');
