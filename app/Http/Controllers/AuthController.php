@@ -26,16 +26,8 @@ class AuthController extends Controller
      */
     public function index()
     {
-        if ($user = Auth::user()) {
-            if ($user->level == '1') {
-                return redirect()->intended('en-page');
-            } elseif ($user->level == '2') {
-                return redirect()->intended('admin-page');
-            } elseif ($user->level == '3') {
-                return redirect()->intended('support-page');
-            } elseif ($user->level == '4') {
-                return redirect()->intended('user-page');
-            }
+        if (Auth::user()) {
+            return redirect()->intended('home');
         }
 
         return view('auth.login');
