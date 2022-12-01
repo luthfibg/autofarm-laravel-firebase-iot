@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\LayoutController;
 use App\Http\Controllers\PanelController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
