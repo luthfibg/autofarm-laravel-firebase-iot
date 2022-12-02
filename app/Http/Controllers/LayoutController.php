@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LayoutController extends Controller
 {
@@ -13,7 +14,9 @@ class LayoutController extends Controller
      */
     public function index()
     {
-        return view('layouts.main');
+        return view('layouts.main')->with([
+            'user' => Auth::user(),
+        ]);
     }
 
     /**
