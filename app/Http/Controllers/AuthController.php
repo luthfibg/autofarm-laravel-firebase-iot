@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Hash;
 
 class AuthController extends Controller
 {
@@ -17,6 +18,36 @@ class AuthController extends Controller
     {
 
         return view('auth.register');
+    }
+
+    public function registerProcess(Request $request) {
+        $request->validate([
+            'username' => 'required|min:4|max:25',
+            'name' => 'required|max:55',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|required_with:password_confirmation|same:password_confirmation|min:6',
+            'password_confirmation' => 'required|min:6'
+        ]);
+
+        $data = $request->all();
+        $check = $this->create($data);
+
+        return redirect()->intended('home')->withSuccess('You have signed-in');
+    }
+
+    /**
+     * Process the form for creating a new membership.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create(array $data)
+    {
+        return User::create([
+            'username' => $data['username'],
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password'])
+        ]);
     }
 
     /**
@@ -80,16 +111,6 @@ class AuthController extends Controller
         return back()->withErrors([
             'username' => 'Maaf username atau password tidak sesuai',
         ])->onlyInput('username');
-    }
-
-    /**
-     * Process the form for creating a new membership.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
-    {
-        // registration rules
     }
 
     /**
