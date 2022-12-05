@@ -28,7 +28,7 @@ Route::get('home', [LayoutController::class, 'index'])->middleware('auth');
 Route::get('login', [AuthController::class, 'index'])->name('login');
 Route::controller(AuthController::class)->group(function () {
     Route::get('register', 'new')->name('register');
-    Route::post('register', 'create');
+    Route::post('registration', 'registerProcess')->name('register.process');
     Route::get('login', 'index')->name('login');
     Route::post('login/process', 'process');
     Route::get('logout', 'logout');

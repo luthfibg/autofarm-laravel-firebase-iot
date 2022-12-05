@@ -25,41 +25,54 @@
     <div class="card-body register-card-body">
       <p class="login-box-msg">Register a new membership</p>
 
-      <form action="{{ asset('/') }}index.html" method="post">
+      <form action="{{ route('register.process') }}" method="POST">
+        @csrf
         <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Create username">
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-users"></span>
-              </div>
+          <input type="text" class="form-control" id="username" name="username" placeholder="Create username" value="{{ old('username') }}" autofocus required>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-users"></span>
             </div>
+          </div>
+          @if ($errors->has('username'))
+              <span class="text-danger">{{ $errors->first('username') }}</span>
+          @endif
         </div>
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Full name">
+          <input type="text" class="form-control" id="name" name="name" placeholder="Full name" value="{{ old('name') }}" required>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
             </div>
           </div>
+          @if ($errors->has('name'))
+              <span class="text-danger">{{ $errors->first('name') }}</span>
+          @endif
         </div>
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email">
+          <input type="email" id="email" name="email" class="form-control" placeholder="Email" value="{{ old('email') }}" required>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
             </div>
           </div>
+          @if ($errors->has('email'))
+              <span class="text-danger">{{ $errors->first('email') }}</span>
+          @endif
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password">
+          <input type="password" id="password" name="password" class="form-control" placeholder="Password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
             </div>
           </div>
+          @if ($errors->has('password'))
+              <span class="text-danger">{{ $errors->first('password') }}</span>
+          @endif
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Retype password">
+          <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Retype password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
