@@ -20,6 +20,32 @@ class AuthController extends Controller
     }
 
     /**
+     * Process the form for creating a new membership.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create(Request $request)
+    {
+        return User::create([
+            'username' => $data['username'],
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password'])
+        ]);
+        // $request->validate([
+        //     'username' => 'required',
+        //     'name' => 'required',
+        //     'email' => 'required|email|unique:users',
+        //     'password' => 'required|min:6',
+        // ]);
+
+        // $data = $request->all();
+        // $check = $this-create($data);
+
+        // return redirect('home')->withSuccess('You have signed-in');
+    }
+
+    /**
      * Display main route or redirect to login page.
      *
      * @return \Illuminate\Http\Response
@@ -80,16 +106,6 @@ class AuthController extends Controller
         return back()->withErrors([
             'username' => 'Maaf username atau password tidak sesuai',
         ])->onlyInput('username');
-    }
-
-    /**
-     * Process the form for creating a new membership.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
-    {
-        // registration rules
     }
 
     /**
