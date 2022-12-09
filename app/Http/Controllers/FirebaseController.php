@@ -3,10 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Kreait\Laravel\Firebase\Facades\Firebase;
 
-class LayoutController extends Controller
+class FirebaseController extends Controller
 {
+    /**
+     * Initialize realtime database 
+     *
+     * using app() helper
+     */
+    public function __construct()
+    {
+        $this->database = app('firebase.database');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,9 +24,9 @@ class LayoutController extends Controller
      */
     public function index()
     {
-        return view('pages.home')->with([
-            'user' => Auth::user(),
-        ]);
+        $switch1 = $database->getReference('Control/R1');
+        $switch2 = $database->getReference('Control/R2');
+        $humid1 = $database->getReference('Monitor/S1');
     }
 
     /**
@@ -24,9 +34,9 @@ class LayoutController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function realtimePage()
+    public function create()
     {
-        return view('pages.realtime');
+        //
     }
 
     /**
@@ -46,9 +56,10 @@ class LayoutController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show() //! $id parameter removed
     {
-        //
+        $snapshot = $switch1->getSnapshot();
+        $value = $snapshot->getValue();
     }
 
     /**
@@ -57,10 +68,22 @@ class LayoutController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function setOn() //! $id parameter removed
     {
-        //
+        $database->getReference('Control')->set([
+            'R1' => '1',
+            'R2' => 1,
+        ]);
     }
+
+    public function setOff() //! $id parameter removed
+    {
+        $database->getReference('Control')->set([
+            'R1' => '0',
+            'R2' => 0,
+        ]);
+    }
+
 
     /**
      * Update the specified resource in storage.

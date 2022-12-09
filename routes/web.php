@@ -24,6 +24,7 @@ Route::get('/', function () {
 
 Route::get('dashboard', [LayoutController::class, 'index'])->middleware('auth');
 Route::get('home', [LayoutController::class, 'index'])->middleware('auth');
+Route::get('realtime', [LayoutController::class, 'realtimePage'])->name('realtime');
 
 Route::get('login', [AuthController::class, 'index'])->name('login');
 Route::controller(AuthController::class)->group(function () {
