@@ -26,7 +26,9 @@ class LayoutController extends Controller
      */
     public function realtimePage()
     {
-        return view('pages.realtime');
+        // return view('pages.realtime')->with([
+        //     'value' => FirebaseController::show(),
+        // ]);
     }
 
     /**

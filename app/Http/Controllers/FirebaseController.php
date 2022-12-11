@@ -12,6 +12,7 @@ class FirebaseController extends Controller
      *
      * using app() helper
      */
+    protected $database;
     public function __construct()
     {
         $this->database = app('firebase.database');
@@ -27,6 +28,11 @@ class FirebaseController extends Controller
         $switch1 = $database->getReference('Control/R1');
         $switch2 = $database->getReference('Control/R2');
         $humid1 = $database->getReference('Monitor/S1');
+        $snapshot = $switch1->getSnapshot();
+        $value = $snapshot->getValue();
+        return view('pages.realtime')->with([
+            'value' => $value,
+        ]);
     }
 
     /**
@@ -58,8 +64,8 @@ class FirebaseController extends Controller
      */
     public function show() //! $id parameter removed
     {
-        $snapshot = $switch1->getSnapshot();
-        $value = $snapshot->getValue();
+        // $snapshot = $switch1->getSnapshot();
+        // $value = $snapshot->getValue();
     }
 
     /**
