@@ -6,6 +6,7 @@ use App\Http\Controllers\LayoutController;
 use App\Http\Controllers\PanelController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FirebaseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +25,7 @@ Route::get('/', function () {
 
 Route::get('dashboard', [LayoutController::class, 'index'])->middleware('auth');
 Route::get('home', [LayoutController::class, 'index'])->middleware('auth');
-Route::get('realtime', [LayoutController::class, 'realtimePage'])->name('realtime');
+Route::get('realtime', [FirebaseController::class, 'index'])->name('realtime');
 
 Route::get('login', [AuthController::class, 'index'])->name('login');
 Route::controller(AuthController::class)->group(function () {

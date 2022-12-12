@@ -21,6 +21,7 @@
                             <button class="btn btn-danger"> Set Off </button>
                             @break
                         @default
+                            <button class="btn btn-primary"> Set On </button>
                             
                     @endswitch
                 </div>

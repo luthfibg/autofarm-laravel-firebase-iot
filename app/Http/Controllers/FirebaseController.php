@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Kreait\Laravel\Firebase\Facades\Firebase;
+use Kreait\Firebase;
+use Kreait\Firebase\Factory;
+use Kreait\Firebase\ServiceAccount;
+use Kreait\Firebase\Database;
+use Kreait\Firebase\Database\Snapshot;
 
 class FirebaseController extends Controller
 {
@@ -12,9 +16,10 @@ class FirebaseController extends Controller
      *
      * using app() helper
      */
+    protected $database;
     public function __construct()
     {
-        $this->database = app('firebase.database');
+        // $this->database = app('firebase.database');
     }
 
     /**
@@ -24,9 +29,16 @@ class FirebaseController extends Controller
      */
     public function index()
     {
+        $factory = (new Factory)->withServiceAccount(__DIR__.'/service-account.json')->withDatabaseUri('https://autofarm-120a0-default-rtdb.firebaseio.com/');
+        $database = $factory->createDatabase();
         $switch1 = $database->getReference('Control/R1');
         $switch2 = $database->getReference('Control/R2');
         $humid1 = $database->getReference('Monitor/S1');
+        $snapshot = $switch1->getSnapshot();
+        $value = $snapshot->getValue();
+        return view('pages.realtime')->with([
+            'value' => $value,
+        ]);
     }
 
     /**
@@ -58,8 +70,8 @@ class FirebaseController extends Controller
      */
     public function show() //! $id parameter removed
     {
-        $snapshot = $switch1->getSnapshot();
-        $value = $snapshot->getValue();
+        // $snapshot = $switch1->getSnapshot();
+        // $value = $snapshot->getValue();
     }
 
     /**
