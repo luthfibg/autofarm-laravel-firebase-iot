@@ -27,8 +27,11 @@ Route::get('dashboard', [LayoutController::class, 'index'])->middleware('auth');
 Route::get('home', [LayoutController::class, 'index'])->middleware('auth');
 Route::get('realtime', [FirebaseController::class, 'index'])->name('realtime');
 
-Route::get('login', [AuthController::class, 'index'])->name('login');
-Route::controller(AuthController::class)->group(function () {
+
+Route::controller(FirebaseController::class)->group(function() {
+    Route::post('registration', 'store')->name('register.process');
+});
+Route::controller(AuthController::class)->group(function() {
     Route::get('register', 'new')->name('register');
     Route::post('registration', 'registerProcess')->name('register.process');
     Route::get('login', 'index')->name('login');
