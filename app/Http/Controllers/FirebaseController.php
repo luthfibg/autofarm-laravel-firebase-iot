@@ -17,9 +17,10 @@ class FirebaseController extends Controller
      * using app() helper
      */
     protected $database;
-    public function __construct()
+    public function __construct(Database $database)
     {
-        // $this->database = app('firebase.database');
+        $this->database = $database;
+        $this->dataroot = 'users';
     }
 
     /**
@@ -29,16 +30,8 @@ class FirebaseController extends Controller
      */
     public function index()
     {
-        $factory = (new Factory)->withServiceAccount(__DIR__.'/service-account.json')->withDatabaseUri('https://autofarm-120a0-default-rtdb.firebaseio.com/');
-        $database = $factory->createDatabase();
-        $switch1 = $database->getReference('Control/R1');
-        $switch2 = $database->getReference('Control/R2');
-        $humid1 = $database->getReference('Monitor/S1');
-        $snapshot = $switch1->getSnapshot();
-        $value = $snapshot->getValue();
-        return view('pages.realtime')->with([
-            'value' => $value,
-        ]);
+        $monitorized = $this->database->getReference($this->dataroot)->getValue();
+        return view('pages.realtime', $monitorized);
     }
 
     /**
@@ -59,7 +52,19 @@ class FirebaseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $postData = [
+            'uname' => $request->username,
+            'name' => $request->name,
+            'email' => $request->email,
+            'pass' => $request->password,
+        ];
+        $postRef = $this->database->getReference($this->dataroot)->push($postData);
+
+        if ($postRef) {
+            return redirect()->intended('home')->with('status', 'You\'ve signed up');
+        } else {
+            return redirect()->intended('register')->with('status', 'Registration failed, please check your connection');
+        }
     }
 
     /**
