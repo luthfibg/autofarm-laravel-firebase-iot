@@ -9,6 +9,7 @@ use App\Models\User;
 
 class RegistrationTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * A basic feature test example.
      *
@@ -25,11 +26,17 @@ class RegistrationTest extends TestCase
     /** @test */
     public function registration_processed()
     {
-        $user = User::factory()->make();
+        // $this->withoutExceptionHandling();
 
-        $response = $this->post('register', $user->toArray());
+        $response = $this->post('registration', [
+            'username' => 'hanoman',
+            'name' => 'Hanoman Prameswara',
+            'email' => 'hanomanprame@gmail.com',
+            'password' => '12122323',
+            'password_confirmation' => '12122323',
+        ]);
 
-        $this->assertAuthenticated();
+        // $this->assertAuthenticated();
 
         $response->assertRedirect('/home');
 
