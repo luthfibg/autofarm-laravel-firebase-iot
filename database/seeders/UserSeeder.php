@@ -79,4 +79,5 @@ class UserSeeder extends Seeder
             User::create($value);
         }
     }
+    // Seeding database command: php artisan db:seed --class=UserSeeder
 }
