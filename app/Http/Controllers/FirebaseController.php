@@ -68,6 +68,26 @@ class FirebaseController extends Controller
         }
     }
 
+    public function authenticate(Request $request)
+    {
+        $authData = [
+            'uname' => $request->username,
+            'pass' => $request->password,
+        ];
+        $users = $this->database->getReference($this->dataroot)->getValue();
+        foreach ($users as $key => $item) {
+            if (
+                $item['uname'] == $authData['uname'] && $item['pass'] == $authData['pass']
+            ) {
+                $request->session()->regenerate();
+                return redirect()->intended('/home');
+            }
+        }
+        return back()->withErrors([
+            'username' => 'Maaf username atau password tidak sesuai',
+        ])->onlyInput('username');
+    }
+
     /**
      * Display the specified resource.
      *
