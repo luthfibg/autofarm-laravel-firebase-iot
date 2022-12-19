@@ -29,7 +29,8 @@ Route::get('realtime', [FirebaseController::class, 'index'])->name('realtime');
 
 
 Route::controller(FirebaseController::class)->group(function() {
-    Route::post('registration', 'store')->name('register.process');
+    Route::post('registration-firebase', 'store')->name('register.process.rdb');
+    Route::post('login-firebase', 'authenticate')->name('login.process.rdb');
 });
 Route::controller(AuthController::class)->group(function() {
     Route::get('register', 'new')->name('register');
