@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Kreait\Firebase;
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\ServiceAccount;
@@ -22,6 +23,7 @@ class FirebaseController extends Controller
     {
         $this->database = $database;
         $this->dataroot = 'users';
+        $this->raw = 'Monitor';
     }
 
     /**
@@ -32,7 +34,10 @@ class FirebaseController extends Controller
     public function index()
     {
         $monitorized = $this->database->getReference($this->dataroot)->getValue();
-        return view('pages.realtime', $monitorized);
+        $mdata  = $this->database->getReference($this->raw)->getValue();
+        return view('pages.realtime', compact('mdata'))->with([
+            'user' => Auth::user(),
+        ]);
     }
 
     /**

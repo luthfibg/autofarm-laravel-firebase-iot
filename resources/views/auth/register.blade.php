@@ -25,7 +25,7 @@
     <div class="card-body register-card-body">
       <p class="login-box-msg">Register a new membership</p>
 
-      <form action="{{ route('register.process.rdb') }}" method="POST">
+      <form action="{{ route('register.process') }}" method="POST">
         @csrf
         <div class="input-group mb-3">
           <input type="text" class="form-control" id="username" name="username" placeholder="Create username" value="{{ old('username') }}" autofocus required>
