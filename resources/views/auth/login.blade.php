@@ -25,7 +25,7 @@
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in to start your session</p>
 
-      <form action="{{ route('login.process.rdb') }}" method="post">
+      <form action="{{ route('login.process') }}" method="post">
         @csrf
         <div class="input-group mb-3">
           <input type="text" name="username" class="form-control

@@ -9,7 +9,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12 col-md-4">
-                    <h2>Status now: {{ $monitorized }}</h2>
+                    <h2>Status now: {{ $mdata['S1'] }}</h2>
                 </div>
                 <div class="col-12 col-md-4"></div>
                 <div class="col-12 col-md-4">

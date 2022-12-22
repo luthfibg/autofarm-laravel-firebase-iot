@@ -32,13 +32,15 @@ Route::controller(FirebaseController::class)->group(function() {
     Route::post('registration-firebase', 'store')->name('register.process.rdb');
     Route::post('login-firebase', 'authenticate')->name('login.process.rdb');
 });
+
 Route::controller(AuthController::class)->group(function() {
     Route::get('register', 'new')->name('register');
     Route::post('registration', 'registerProcess')->name('register.process');
     Route::get('login', 'index')->name('login');
-    Route::post('login/process', 'process');
+    Route::post('login.process', 'process')->name('login.process');
     Route::get('logout', 'logout');
 });
+
 Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['loginw:1']], function () {
         Route::resource('en-page', PanelController::class);
