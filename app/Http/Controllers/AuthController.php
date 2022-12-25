@@ -26,7 +26,7 @@ class AuthController extends Controller
             'name' => 'required|max:55',
             'email' => 'required|email|unique:users',
             'password' => 'required|required_with:password_confirmation|same:password_confirmation|min:6',
-            'password_confirmation' => 'required|min:6'
+            'password_confirmation' => 'required|min:6',
         ]);
 
         $data = $request->all();

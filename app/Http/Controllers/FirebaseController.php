@@ -35,7 +35,7 @@ class FirebaseController extends Controller
     {
         $monitorized = $this->database->getReference($this->dataroot)->getValue();
         $mdata  = $this->database->getReference($this->raw)->getValue();
-        return view('pages.realtime', compact('mdata'))->with([
+        return view('pages.realtime', compact('monitorized', 'mdata'))->with([
             'user' => Auth::user(),
         ]);
     }
