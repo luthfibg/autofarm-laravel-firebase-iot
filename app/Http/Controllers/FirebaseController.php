@@ -84,8 +84,10 @@ class FirebaseController extends Controller
             if (
                 $item['uname'] == $authData['uname'] && $item['pass'] == $authData['pass']
             ) {
-                $request->session()->regenerate();
-                return redirect()->intended('/home');
+                // $request->session()->regenerate();
+                return view('pages.home')->compact('item')->with([
+                    'item' => $item,
+                ]);
             }
         }
         return back()->withErrors([

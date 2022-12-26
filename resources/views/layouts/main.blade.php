@@ -170,7 +170,7 @@
         </div>
         <div class="info">
           <a href="#" class="d-block">
-            {{ $user->username }}
+            {{ $item->uname }} {{-- $user->username --}}
           </a>
         </div>
       </div>

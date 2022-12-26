@@ -24,7 +24,8 @@ Route::get('/', function () {
 });
 
 Route::get('dashboard', [LayoutController::class, 'index'])->middleware('auth');
-Route::get('home', [LayoutController::class, 'index'])->middleware('auth');
+// Route::get('home', [LayoutController::class, 'index'])->middleware('auth'); // choose one, this
+Route::get('home', [LayoutController::class, 'index'])->name('home'); // or this
 Route::get('realtime', [FirebaseController::class, 'index'])->name('realtime');
 
 
