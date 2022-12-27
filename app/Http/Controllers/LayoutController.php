@@ -31,6 +31,14 @@ class LayoutController extends Controller
         // ]);
     }
 
+    public function userlist()
+    {
+        return view('pages.userlist')->with([
+            'user' => Auth::user(),
+        ]);
+    }
+
+
     /**
      * Store a newly created resource in storage.
      *
