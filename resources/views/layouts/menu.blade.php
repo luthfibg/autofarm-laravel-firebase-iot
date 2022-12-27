@@ -47,9 +47,9 @@
     </a>
 </li>
 <li class="nav-item">
-    <a href="{{ url('home') }}" class="nav-link">
-        <i class="nav-icon fas fa-folder-open"></i>
-        <p>View Report</p>
+    <a href="{{ url('userlist') }}" class="nav-link">
+        <i class="nav-icon fas fa-users"></i>
+        <p>View users</p>
     </a>
 </li>
 <li class="nav-header">JUMP TO</li>

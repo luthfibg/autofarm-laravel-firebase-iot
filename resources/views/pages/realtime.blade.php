@@ -5,29 +5,6 @@
 @endsection
 
 @section('content')
-    {{-- <div class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12 col-md-4">
-                    <h2>Status now: {{ $monitorized['kbp'] }}</h2>
-                </div>
-                <div class="col-12 col-md-4"></div>
-                <div class="col-12 col-md-4">
-                    {{-- @switch($value)
-                        @case('0')
-                            <button class="btn btn-primary"> Set On </button>
-                            @break
-                        @case('1')
-                            <button class="btn btn-danger"> Set Off </button>
-                            @break
-                        @default
-                            <button class="btn btn-primary"> Set On </button>
-                            
-                    @endswitch --
-                </div>
-            </div>
-        </div>
-    </div> --}}
     <div class="lg:flex lg:items-center lg:justify-between">
         <div class="min-w-0 flex-1">
           <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">Humidity Data Monitor</h2>
