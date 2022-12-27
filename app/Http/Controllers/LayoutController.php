@@ -4,9 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Kreait\Firebase;
+use Kreait\Firebase\Factory;
+use Kreait\Firebase\Contract\Database;
+use Kreait\Firebase\Database\Snapshot;
 
 class LayoutController extends Controller
 {
+
+    protected $database;
+    public function __construct(Database $database)
+    {
+        $this->database = $database;
+        $this->dataroot = 'users';
+        $this->raw = 'Monitor';
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -33,7 +46,8 @@ class LayoutController extends Controller
 
     public function userlist()
     {
-        return view('pages.userlist')->with([
+        $users = $this->database->getReference($this->dataroot)->getValue();
+        return view('pages.userlist', compact('users'))->with([
             'user' => Auth::user(),
         ]);
     }
