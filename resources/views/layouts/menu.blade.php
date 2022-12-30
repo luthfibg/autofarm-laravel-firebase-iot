@@ -60,7 +60,7 @@
     </a>
 </li>
 <li class="nav-item">
-    <a href="{{ url('home') }}" class="nav-link">
+    <a href="{{ url('realtime') }}" class="nav-link">
         <i class="nav-icon fas fa-temperature-low"></i>
         <p>Realtime Status</p>
     </a>
